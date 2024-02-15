@@ -26,7 +26,7 @@ public class MyMath {
 
     public static void main(String[] args) {
         Random rng = new Random();
-        double x = rng.nextDouble();
+        double x = rng.nextInt(100000);
         System.out.println("The square root of " + x + " is " + myRoot(x) + ".");
     }
 }
