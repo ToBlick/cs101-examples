@@ -35,6 +35,16 @@ public class EvenBetterWordle {
         return s.contains(Character.toString(c));
     }
 
+    public static boolean charIsInCharArr(char c, char[] s) {
+        for (int i = 0; i < s.length; i++) {
+            if (c == s[i]) {
+                s[i] = '0'; // patch it!
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static String getWord() {
         Random r = new Random();
         return wordlist[r.nextInt(wordlist.length)];
@@ -49,13 +59,18 @@ public class EvenBetterWordle {
     }
 
     public static void displayOutput(String guess, String solution) {
+        // conver input into char array
+        char[] guessArr = guess.toCharArray();
+        char[] solutionArr = solution.toCharArray();
+
         // check guess correctness
-        String output = "";
+        char[] output = new char[5];
         for (int i = 0; i < 5; i++) {
-            if (guess.charAt(i) == solution.charAt(i)) {
-                output = output + "🟩";
-            } else if (charIsInString(guess.charAt(i), solution) ) {
-                output = output + "🟨";
+            if (guessArr[i] == solutionArr[i]) {
+                solutionArr[i] = '0'; // patch it
+                output[i] = 'g';
+            } else if (charIsInCharArr(guessArr[i], solutionArr) ) {
+                output[i] = 'o';
                 /* TODO: If the string contains the same latter multiple times, this will output in a wrong way.
                 * Example: True word is CATCH
                 * User guess: CATTY
@@ -64,11 +79,11 @@ public class EvenBetterWordle {
                 * Other example:
                 * True word is TOUCH
                 * User guess: CATTY
-                * Current output: ⬛⬛🟨🟨⬛
-                * Correct output: ⬛⬛🟨⬛⬛ (no second T present in solution)
+                * Current output: 🟨⬛🟨🟨⬛
+                * Correct output: 🟨⬛🟨⬛⬛ (no second T present in solution)
                 */ 
             } else {
-                output = output + "⬛";
+                output[i] = 'b';
             }
         }
         printWriter.println(output);
