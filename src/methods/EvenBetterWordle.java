@@ -86,7 +86,21 @@ public class EvenBetterWordle {
                 output[i] = 'b';
             }
         }
-        printWriter.println(output);
+        String outputstring = "";
+        for (int i = 0; i < 5; i++) {
+            switch (output[i]) {
+                case 'g':
+                    outputstring += "🟩";
+                    break;
+                case 'o':
+                    outputstring += "🟨";
+                    break;
+                default:
+                    outputstring += "⬛";
+                    break;
+            }
+        }
+        printWriter.println(outputstring);
     }
 
     public static void main(String[] args) {
