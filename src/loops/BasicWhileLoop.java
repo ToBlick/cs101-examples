@@ -18,7 +18,7 @@ public class BasicWhileLoop {
 		// while loops depend upon boolean conditions
 		
 		// this is an infinite loop... it will never stop iterating... maybe...
-		while ( ("mary".equals(name) || 5 != 6) && 5 == 5 && true != false && !"bob".equals(name) ) {
+		while ( ("mary".equals(name) || 5 != 6) && true != false && !"bob".equals(name) ) {
 			System.out.println("This will iterate over and over...");
 
 			// increment the counter/accumulator
