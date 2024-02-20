@@ -18,10 +18,10 @@ public class EvenBetterWordle {
     static String validcharsstring = "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z";
 
     /**
-     * Checking whether a string is valid for Wordle.
+     * Check whether a string is valid for Wordle.
      * 
      * @param input a string
-     * @return  whether string input is valid
+     * @return whether string input is valid
      */
     public static boolean inputIsValid(String input) {
         if (input.length() != 5) {
@@ -38,11 +38,11 @@ public class EvenBetterWordle {
     }
 
     /**
-     * Checking whether a give character is contained in a given string.
+     * Check whether a given character is contained in a given string.
      * 
-     * @param c an character
+     * @param c a character
      * @param s a string
-     * @return  whther character c is in string s
+     * @return whether character c is in string s
      */
     public static boolean charIsInString(char c, String s) {
         return s.contains(Character.toString(c));
@@ -68,9 +68,9 @@ public class EvenBetterWordle {
     }
 
     /**
-     * Randamly picking a word from worldlist.
+     * Randomly pick a word from worldlist.
      * 
-     * @return  the picked word as string
+     * @return the picked word as a string
      */
     public static String getWord() {
         Random r = new Random();
@@ -78,9 +78,9 @@ public class EvenBetterWordle {
     }
 
     /**
-     * Checking whether the user guess is correct.
+     * Check whether the user guess is correct.
      * 
-     * @param guess     word (string) that the use guess
+     * @param guess     word (string) that the user guessed
      * @param solution  correct answer (string)
      * @return          whether string guess is equal to solution
      */
@@ -93,10 +93,10 @@ public class EvenBetterWordle {
     }
 
     /**
-     * Printing information according to the user's guess. The information 
+     * Print information according to the user's guess. The information 
      * includes whether each character is contained and in the right spot.
      * 
-     * @param guess     word (string) that the use guess
+     * @param guess     word (string) that the user guessed
      * @param solution  correct answer (string)
      */
     public static void displayOutput(String guess, String solution) {
@@ -112,17 +112,6 @@ public class EvenBetterWordle {
                 output[i] = 'g';
             } else if (charIsInCharArr(guessArr[i], solutionArr) ) {
                 output[i] = 'o';
-                /* TODO: If the string contains the same latter multiple times, this will output in a wrong way.
-                * Example: True word is CATCH
-                * User guess: CATTY
-                * Current output: 🟩🟩🟩🟨⬛
-                * Correct output: 🟩🟩🟩⬛⬛ (no second T present in solution)
-                * Other example:
-                * True word is TOUCH
-                * User guess: CATTY
-                * Current output: 🟨⬛🟨🟨⬛
-                * Correct output: 🟨⬛🟨⬛⬛ (no second T present in solution)
-                */ 
             } else {
                 output[i] = 'b';
             }
