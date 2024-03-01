@@ -41,7 +41,7 @@ public class Snake {
         while (true) {
             int i = rng.nextInt(game.length);
             int j = rng.nextInt(game[i].length);
-            if (game[i][j] == 0 || game[i][j] == -1) {
+            if (game[i][j] == 0) {
                 game[i][j] = -1;
                 return;
             }
