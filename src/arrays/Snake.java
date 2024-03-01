@@ -149,6 +149,10 @@ public class Snake {
             System.out.flush();
             printGame(myGame);
             validInput = userMove(myGame);
+            if (checkWin(myGame)) {
+                System.out.println("You win! :)");
+                return;
+            }
         }
         System.out.println("You lose :(");
     }
