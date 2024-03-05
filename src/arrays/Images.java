@@ -5,7 +5,6 @@ import java.io.File;
 import java.util.Random;
 
 import cern.colt.matrix.linalg.SingularValueDecomposition;
-import cern.colt.Arrays;
 import cern.colt.matrix.DoubleMatrix2D;
 
 import javax.imageio.ImageIO;
@@ -20,11 +19,19 @@ public class Images {
         saveImage(vibrantFilter(catArray), "data/vibrantcat.jpg");
         saveImage(airbrushFilter(catArray, 20), "data/fuzzycat.jpg");
         saveImage(greyFilter(catArray), "data/greycat.jpg");
-        // saveImage(lowRankFilter(catArray, 5), "data/lowrankcat_5.jpg");
-        // saveImage(lowRankFilter(catArray, 10), "data/lowrankcat_10.jpg");
-        // saveImage(lowRankFilter(catArray, 50), "data/lowrankcat_50.jpg");
+        saveImage(lowRankFilter(catArray, 5), "data/lowrankcat_5.jpg");
+        saveImage(lowRankFilter(catArray, 10), "data/lowrankcat_10.jpg");
+        saveImage(lowRankFilter(catArray, 50), "data/lowrankcat_50.jpg");
         saveImage(noiseFilter(catArray, 0.5), "data/noisycat.jpg");
         saveImage(airbrushFilter(noiseFilter(catArray, 0.5), 3), "data/denoisedcat.jpg");
+
+        /* 
+        * TODO: Rewrite the vibrant, sepia, and grey filters in one common method that takes an extra 3x3 argument for the coefficients of the color transformation matrix:
+        * r' = m11 * r + m12 * g + m13 * b
+        * g' = m21 * r + m22 * g + m23 * b  or RGB' = M * RGB
+        * b' = m31 * r + m32 * g + m33 * b
+        */
+
     }
 
     public static int[][][] readImage(String path) throws Exception{
@@ -58,9 +65,9 @@ public class Images {
                 int g = (int) Math.round(0.349 * data[i][j][0] + 0.686 * data[i][j][1] + 0.168 * data[i][j][2]);
                 int b = (int) Math.round(0.272 * data[i][j][0] + 0.534 * data[i][j][1] + 0.131 * data[i][j][2]);
 
-                out[i][j][0] = r > 255 ? 255 : r;
-                out[i][j][1] = g > 255 ? 255 : g;
-                out[i][j][2] = b > 255 ? 255 : b;
+                out[i][j][0] = cutToByte(r);
+                out[i][j][1] = cutToByte(g);
+                out[i][j][2] = cutToByte(b);
             }
         }
 
@@ -78,9 +85,9 @@ public class Images {
                 // Calculate grey color:    red                green                   blue
                 int r = (int) Math.round(0.299 * data[i][j][0] + 0.587 * data[i][j][1] + 0.114 * data[i][j][2]);
 
-                out[i][j][0] = r > 255 ? 255 : r;
-                out[i][j][1] = r > 255 ? 255 : r;
-                out[i][j][2] = r > 255 ? 255 : r;
+                out[i][j][0] = cutToByte(r);
+                out[i][j][1] = out[i][j][0];
+                out[i][j][2] = out[i][j][0];
             }
         }
 
@@ -100,9 +107,9 @@ public class Images {
                 int g = (int) Math.round(1.3 * data[i][j][1]);
                 int b = (int) Math.round(1.1 * data[i][j][2]);
 
-                out[i][j][0] = r > 255 ? 255 : r;
-                out[i][j][1] = g > 255 ? 255 : g;
-                out[i][j][2] = b > 255 ? 255 : b;
+                out[i][j][0] = cutToByte(r);
+                out[i][j][1] = cutToByte(g);
+                out[i][j][2] = cutToByte(b);
             }
         }
 
@@ -119,13 +126,10 @@ public class Images {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                int r = (int) Math.round(data[i][j][0] * ( 1 + sigma * rng.nextGaussian() ));
-                int g = (int) Math.round(data[i][j][1] * ( 1 + sigma * rng.nextGaussian() ));
-                int b = (int) Math.round(data[i][j][2] * ( 1 + sigma * rng.nextGaussian() ));
-
-                out[i][j][0] = r > 255 ? 255 : r;
-                out[i][j][1] = g > 255 ? 255 : g;
-                out[i][j][2] = b > 255 ? 255 : b;
+                for (int c = 0; c < 3; c++) {
+                    int color = (int) Math.round(data[i][j][c] * ( 1 + sigma * rng.nextGaussian() ));
+                    out[i][j][c] = cutToByte(color);
+                }
             }
         }
 
@@ -165,54 +169,37 @@ public class Images {
 
         int[][][] out = new int[width][height][3];
 
-        double[][] red = new double[width][height];
-        double[][] green = new double[width][height];
-        double[][] blue = new double[width][height];
+        double[][][] colors = new double[3][width][height];
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                red[i][j] = data[i][j][0] / 255.0;
-                green[i][j] = data[i][j][1] / 255.0;
-                blue[i][j] = data[i][j][2] / 255.0;
+                for (int c = 0; c < 3; c++) {
+                    colors[c][i][j] = data[i][j][c] / 255.0;
+                }
             }
         }
 
-        DoubleMatrix2D redMatrix = new cern.colt.matrix.impl.DenseDoubleMatrix2D(red);
-        DoubleMatrix2D greenMatrix = new cern.colt.matrix.impl.DenseDoubleMatrix2D(green);
-        DoubleMatrix2D blueMatrix = new cern.colt.matrix.impl.DenseDoubleMatrix2D(blue);
+        DoubleMatrix2D[] colorMatrices = new DoubleMatrix2D[3];
+        SingularValueDecomposition[] svds = new SingularValueDecomposition[3];
+        for (int i = 0; i < 3; i++) {
+            colorMatrices[i] = new cern.colt.matrix.impl.DenseDoubleMatrix2D(colors[i]);
+            svds[i] = new SingularValueDecomposition(colorMatrices[i]);
+        }
 
-        SingularValueDecomposition svdRed = new SingularValueDecomposition(redMatrix);
-        SingularValueDecomposition svdGreen = new SingularValueDecomposition(greenMatrix);
-        SingularValueDecomposition svdBlue = new SingularValueDecomposition(blueMatrix);
-
-        double[][] redU = svdRed.getU().toArray();
-        double[][] redV = svdRed.getV().toArray();
-        double[] redS = svdRed.getSingularValues();
-        double[][] greenU = svdGreen.getU().toArray();
-        double[][] greenV = svdGreen.getV().toArray();
-        double[] greenS = svdGreen.getSingularValues();
-        double[][] blueU = svdBlue.getU().toArray();
-        double[][] blueV = svdBlue.getV().toArray();
-        double[] blueS = svdBlue.getSingularValues();
-
-        // A is approx. by A_k = U_k * S_k * V_k^T
-
-        double[][] redApprox = lowRankProduct(redU, redS, redV, k);
-        double[][] greenApprox = lowRankProduct(greenU, greenS, greenV, k);
-        double[][] blueApprox = lowRankProduct(blueU, blueS, blueV, k);
+        double[][][] colorApproxs = new double[3][width][height];
+        for (int i = 0; i < 3; i++) {
+            double[][] U = svds[i].getU().toArray();
+            double[][] V = svds[i].getV().toArray();
+            double[] S = svds[i].getSingularValues();
+            colorApproxs[i] = lowRankProduct(U, S, V, k);
+        }
         
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                int r = (int) Math.round(redApprox[i][j] * 255.0);
-                int g = (int) Math.round(greenApprox[i][j] * 255.0);
-                int b = (int) Math.round(blueApprox[i][j] * 255.0);
-
-                out[i][j][0] = r > 255 ? 255 : r;
-                out[i][j][1] = g > 255 ? 255 : g;
-                out[i][j][2] = b > 255 ? 255 : b;
-                out[i][j][0] = out[i][j][0] < 0 ? 0 : out[i][j][0];
-                out[i][j][1] = out[i][j][1] < 0 ? 0 : out[i][j][1];
-                out[i][j][2] = out[i][j][2] < 0 ? 0 : out[i][j][2];
+                for (int c = 0; c < 3; c++) {
+                    int r = (int) Math.round(colorApproxs[c][i][j] * 255.0);
+                    out[i][j][c] = cutToByte(r);
+                }
             }
         }
 
@@ -235,6 +222,10 @@ public class Images {
       
         File outputFile = new File(path);
         ImageIO.write(image, "jpg", outputFile);
+    }
+
+    public static int cutToByte(int value) {
+        return value > 255 ? 255 : (value < 0 ? 0 : value);
     }
 
     /* Linear Algebra below */
