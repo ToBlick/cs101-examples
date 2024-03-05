@@ -2,6 +2,8 @@ package arrays;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.Random;
+
 import cern.colt.matrix.linalg.SingularValueDecomposition;
 import cern.colt.Arrays;
 import cern.colt.matrix.DoubleMatrix2D;
@@ -13,14 +15,16 @@ import java.awt.Color;
 public class Images {
 
     public static void main(String[] args) throws Exception{
-        int[][][] data = readImage("data/cat.jpg");
-        saveImage(sepiaFilter(data), "data/sepiacat.jpg");
-        saveImage(vibrantFilter(data), "data/vibrantcat.jpg");
-        saveImage(airbrushFilter(airbrushFilter(airbrushFilter(data))), "data/fuzzycat.jpg");
-        saveImage(greyFilter(data), "data/greycat.jpg");
-        saveImage(lowRankFilter(data, 5), "data/lowrankcat_5.jpg");
-        saveImage(lowRankFilter(data, 50), "data/lowrankcat_10.jpg");
-        saveImage(lowRankFilter(data, 100), "data/lowrankcat_50.jpg");
+        int[][][] catArray = readImage("data/cat.jpg");
+        saveImage(sepiaFilter(catArray), "data/sepiacat.jpg");
+        saveImage(vibrantFilter(catArray), "data/vibrantcat.jpg");
+        saveImage(airbrushFilter(catArray, 20), "data/fuzzycat.jpg");
+        saveImage(greyFilter(catArray), "data/greycat.jpg");
+        // saveImage(lowRankFilter(catArray, 5), "data/lowrankcat_5.jpg");
+        // saveImage(lowRankFilter(catArray, 10), "data/lowrankcat_10.jpg");
+        // saveImage(lowRankFilter(catArray, 50), "data/lowrankcat_50.jpg");
+        saveImage(noiseFilter(catArray, 0.5), "data/noisycat.jpg");
+        saveImage(airbrushFilter(noiseFilter(catArray, 0.5), 3), "data/denoisedcat.jpg");
     }
 
     public static int[][][] readImage(String path) throws Exception{
@@ -50,9 +54,9 @@ public class Images {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 // Calculate sepia color:    red                green                   blue
-                int r = (int) (0.393 * data[i][j][0] + 0.769 * data[i][j][1] + 0.189 * data[i][j][2]);
-                int g = (int) (0.349 * data[i][j][0] + 0.686 * data[i][j][1] + 0.168 * data[i][j][2]);
-                int b = (int) (0.272 * data[i][j][0] + 0.534 * data[i][j][1] + 0.131 * data[i][j][2]);
+                int r = (int) Math.round(0.393 * data[i][j][0] + 0.769 * data[i][j][1] + 0.189 * data[i][j][2]);
+                int g = (int) Math.round(0.349 * data[i][j][0] + 0.686 * data[i][j][1] + 0.168 * data[i][j][2]);
+                int b = (int) Math.round(0.272 * data[i][j][0] + 0.534 * data[i][j][1] + 0.131 * data[i][j][2]);
 
                 out[i][j][0] = r > 255 ? 255 : r;
                 out[i][j][1] = g > 255 ? 255 : g;
@@ -72,7 +76,7 @@ public class Images {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 // Calculate grey color:    red                green                   blue
-                int r = (int) (0.299 * data[i][j][0] + 0.587 * data[i][j][1] + 0.114 * data[i][j][2]);
+                int r = (int) Math.round(0.299 * data[i][j][0] + 0.587 * data[i][j][1] + 0.114 * data[i][j][2]);
 
                 out[i][j][0] = r > 255 ? 255 : r;
                 out[i][j][1] = r > 255 ? 255 : r;
@@ -92,9 +96,9 @@ public class Images {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 // Calculate vibrant color:
-                int r = (int) (1.5 * data[i][j][0]);
-                int g = (int) (1.3 * data[i][j][1]);
-                int b = (int) (1.1 * data[i][j][2]);
+                int r = (int) Math.round(1.5 * data[i][j][0]);
+                int g = (int) Math.round(1.3 * data[i][j][1]);
+                int b = (int) Math.round(1.1 * data[i][j][2]);
 
                 out[i][j][0] = r > 255 ? 255 : r;
                 out[i][j][1] = g > 255 ? 255 : g;
@@ -105,7 +109,30 @@ public class Images {
         return out;
     }
 
-    public static int[][][] airbrushFilter(int[][][] data) {
+    public static int[][][] noiseFilter(int[][][] data, double sigma) {
+        int width = data.length;
+        int height = data[0].length;
+
+        int[][][] out = new int[width][height][3];
+
+        Random rng = new Random();
+
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                int r = (int) Math.round(data[i][j][0] * ( 1 + sigma * rng.nextGaussian() ));
+                int g = (int) Math.round(data[i][j][1] * ( 1 + sigma * rng.nextGaussian() ));
+                int b = (int) Math.round(data[i][j][2] * ( 1 + sigma * rng.nextGaussian() ));
+
+                out[i][j][0] = r > 255 ? 255 : r;
+                out[i][j][1] = g > 255 ? 255 : g;
+                out[i][j][2] = b > 255 ? 255 : b;
+            }
+        }
+
+        return out;
+    }
+
+    public static int[][][] airbrushFilter(int[][][] data, int iterations) {
         int width = data.length;
         int height = data[0].length;
 
@@ -125,9 +152,12 @@ public class Images {
             }
         }
 
-        return out;
+        if (iterations > 1) {
+            return airbrushFilter(out, iterations - 1);
+        } else {
+            return out;
+        }
     }
-
 
     public static int[][][] lowRankFilter(int[][][] data, int k) {
         int width = data.length;
