@@ -232,7 +232,7 @@ public class Snake {
         boolean legalMove = false;
         int row = newPosition[0];
         int col = newPosition[1];
-        if (row < 0 && row >= board.length && col < 0 && col >= board[row].length) { // check bounds
+        if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) { // check bounds
             legalMove = false;  // strictly speaking, this is not necessary, but it makes the code more readable
         } else {
             int oldValue = board[oldPosition[0]][oldPosition[1]];

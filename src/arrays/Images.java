@@ -145,10 +145,10 @@ public class Images {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 for (int k = 0; k < 3; k++) {
-                    int iplus = i + 1 < width ? i + 1 : width - 1;
-                    int jplus = j + 1 < height ? j + 1 : height - 1;
-                    int iminus = i - 1 > 0 ? i - 1 : 0;
-                    int jminus = j - 1 > 0 ? j - 1 : 0;
+                    int iplus  = i + 1 < width  ? i + 1 : width - 1;
+                    int jplus  = j + 1 < height ? j + 1 : height - 1;
+                    int iminus = i - 1 > 0      ? i - 1 : 0;
+                    int jminus = j - 1 > 0      ? j - 1 : 0;
                     out[i][j][k] = (int) Math.round((1 * data[iminus][jplus][k]  + 2 * data[i][jplus][k]  + 1 * data[iplus][jplus][k] +
                                                      2 * data[iminus][j][k]      + 4 * data[i][j][k]      + 2 * data[iplus][j][k] +
                                                      1 * data[iminus][jminus][k] + 2 * data[i][jminus][k] + 1 * data[iplus][jminus][k]) / 16.0 );
