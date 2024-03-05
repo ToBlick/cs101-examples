@@ -222,10 +222,11 @@ public class Snake {
 
 
     /**
-     * Handle the move of the snake based on the new position of the snake's head.
+     * Handle the move of the snake.
      * @param newPosition The new position of the snake's head as an array of two integers.
      * @param oldPosition The old position of the snake's head as an array of two integers.
      * @param board The board the snake is on.
+     * @return true if the move is legal, false otherwise.
      */
     public static boolean handleMove(int[] newPosition, int[] oldPosition, int[][] board) {
         boolean legalMove = false;
