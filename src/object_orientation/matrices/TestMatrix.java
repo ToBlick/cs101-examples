@@ -6,7 +6,7 @@ public class TestMatrix {
         Matrix m1 = new Matrix(3, 3);
         Matrix m2 = new Matrix(3, 1);
 
-        System.out.println(m1.toString());
+        System.out.println("m1 is a " + m1.toString());
         System.err.println();
 
         m1.randomFill();

@@ -29,6 +29,13 @@ public class Dog {
         Dog.numDogs++; // if this constructor method has been run, we've made a dog object
     }
 
+    public Dog(String name, String breed, int age) {
+        this.setName(name);
+        this.setBreed(breed);
+        this.setAge(age);
+        Dog.numDogs++;
+    }
+
     // actions (a.k.a methods)
 
     /**
