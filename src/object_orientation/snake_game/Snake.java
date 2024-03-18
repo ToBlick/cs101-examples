@@ -15,9 +15,9 @@ public class Snake {
      * @param args
      */
     public static void main(String[] args) {
-        Board game = new Board();
-        while (game.legalMove) {
-            game.printboard();
+        Board game = new Board(3);
+        while (game.legalGame()) {
+            game.printBoard();
             game.userMove();
             if (game.checkWin()) {
                 System.out.println("You win! :)");
