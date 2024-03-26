@@ -1,5 +1,7 @@
 package matrices;
 
+import java.util.Locale;
+
 public class Matrix {
 
     private int[][] data;
@@ -31,7 +33,8 @@ public class Matrix {
     public void print() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getCols(); j++) {
-                System.out.print(this.getIndex(i, j) + " ");
+                System.out.print(this.getIndex(i, j));
+                System.out.print(" ");
             }
             System.out.println();
         }
@@ -51,15 +54,30 @@ public class Matrix {
         return result;
     }
 
+    public Matrix subtract(Matrix other) {
+        if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {
+            System.out.println("Error: dimensions must agree.");
+            return null;
+        }
+        Matrix result = new Matrix(this.getRows(), this.getCols());
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getCols(); j++) {
+                result.setIndex(i, j, this.getIndex(i, j) - other.getIndex(i, j));
+            }
+        }
+        return result;
+    }
+
     public Matrix multiply(Matrix other) {
         if (this.getCols() != other.getRows()) {
             System.out.println("Error: dimensions must agree.");
             return null;
         }
+        int sum;
         Matrix result = new Matrix(this.getRows(), other.getCols());
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < other.getCols(); j++) {
-                int sum = 0;
+                sum = 0;
                 for (int k = 0; k < this.getCols(); k++) {
                     sum += this.data[i][k] * other.getIndex(k, j);
                 }
@@ -122,5 +140,15 @@ public class Matrix {
         // TODO ...
 
         return result;
+    }
+
+    public double norm() {
+        int sum = 0;
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getCols(); j++) {
+                sum += this.getIndex(i, j) * this.getIndex(i, j);
+            }
+        }
+        return Math.sqrt(sum);
     }
 }
