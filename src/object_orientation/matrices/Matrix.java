@@ -1,7 +1,5 @@
 package matrices;
 
-import java.util.Locale;
-
 public class Matrix {
 
     private int[][] data;
@@ -82,6 +80,16 @@ public class Matrix {
                     sum += this.data[i][k] * other.getIndex(k, j);
                 }
                 result.setIndex(i, j, sum);
+            }
+        }
+        return result;
+    }
+
+    public Matrix multiply(int a) {
+        Matrix result = new Matrix(this.getRows(), this.getCols());
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getCols(); j++) {
+                result.setIndex(i, j, a * this.getIndex(i, j));
             }
         }
         return result;

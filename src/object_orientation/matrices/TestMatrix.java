@@ -3,7 +3,9 @@ package matrices;
 public class TestMatrix {
 
     public static void main(String[] args) {
+
         int n = 5;
+
         Matrix m1 = new Matrix(n, n);
         Matrix m2 = new Matrix(n, n);
 

@@ -1,8 +1,6 @@
 package matrices;
 
 import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Collections;
 
 public class SparseMatrix {
 

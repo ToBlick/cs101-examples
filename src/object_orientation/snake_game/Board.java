@@ -1,4 +1,4 @@
-package object_orientation.snake_game;
+package snake_game;
 
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -20,8 +20,8 @@ public class Board {
     
     // actions
     /**
-     * Constructor for Board. Create a N x N matrices, put the head 
-     * of the snake, and put the food.
+     * Constructor for the board. Creates a N x N matrices, places the head 
+     * of the snake, and places food.
      * 
      * @param N size of the board is N x N
      */
@@ -40,8 +40,7 @@ public class Board {
     }
 
     /**
-     * Constructor for Board. Create a 9 x 9 matrices, put the head 
-     * of the snake, and put the food.
+     * Convenience constructor for the board with N = 9.
      */
     public Board() {
         this(9);
@@ -49,10 +48,10 @@ public class Board {
 
     /**
      * Print the board.
-     * Snake:       🟩 (U+1F7E9)       x
-     * Snake head:  👀 (U+1F440)       H
-     * Food:        🟨 (U+1F7E8)       F
-     * Field:       ⬛ (U+2B1B)        -
+     * Snake:       🟩 (U+1F7E9) 
+     * Snake head:  👀 (U+1F440) 
+     * Food:        🟨 (U+1F7E8) 
+     * Field:       ⬛ (U+2B1B)  
      */
     public void printBoard() {
         int boardMax = this.headValue();
@@ -60,13 +59,13 @@ public class Board {
             String toPrint = "";
             for (int cell : row) {
                 if (cell == 0) { // Field
-                    toPrint += "-";//"⬛";     
+                    toPrint += "⬛";     
                 } else if (cell == boardMax) { // Snake head
-                    toPrint += "H";//"👀";       
+                    toPrint += "👀";       
                 } else if (cell == -1) {// Food   
-                    toPrint += "F";//"🟨";     
+                    toPrint += "🟨";     
                 } else { // Snake
-                    toPrint += "x";//"🟩";
+                    toPrint += "🟩";
                 }
             }
             this.printWriter.println(toPrint); // we need to use printWriter.println() instead of System.out.println() to avoid the Unicode characters being printed as question marks
@@ -91,7 +90,7 @@ public class Board {
     }
 
     /**
-     * Whether the move is legal
+     * Determine if a move is legal
      * 
      * @return legalMove
      */

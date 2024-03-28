@@ -1,4 +1,4 @@
-package object_orientation.snake_game;
+package snake_game;
 
 /**
  * The Snake class represents a simple snake game.
