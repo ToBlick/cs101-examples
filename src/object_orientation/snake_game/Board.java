@@ -112,7 +112,7 @@ public class Board {
     }
 
     public int getHightscore() {
-        return highscore;
+        return Board.highscore;
     }
 
     /**
