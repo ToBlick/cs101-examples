@@ -1,5 +1,7 @@
 package snake_game;
 
+import java.util.Scanner;
+
 /**
  * The Snake class represents a simple snake game.
  * The game is played on a grid where the snake (represented by green squares) moves around and tries to eat the food (represented by yellow squares).
@@ -15,15 +17,30 @@ public class Snake {
      * @param args
      */
     public static void main(String[] args) {
-        Board game = new Board(3);
-        while (game.legalGame()) {
-            game.printBoard();
-            game.userMove();
-            if (game.checkWin()) {
-                System.out.println("You win! :)");
-                return;
+
+        Scanner in = new Scanner(System.in);
+        boolean keepPlaying = true;
+
+        while (keepPlaying) {
+
+            Board game = new Board(4,4);
+            while (game.legalGame()) {
+                game.printBoard();
+                game.userMove();
+                if (game.checkWin()) {
+                    System.out.println("You win! :)");
+                    break;
+                }
             }
+            if (!game.checkWin()) {
+                System.out.println("You lose :(");
+            }
+            System.out.println("The snake grew to a length of " + game.snakeLength() + " cells.");
+            System.out.println("The highscore is " + game.getHightscore() + " cells.");
+            System.out.println("Do you want to play again? [y/n]");
+            String userInput = in.nextLine();
+            keepPlaying = userInput.equals("y");
         }
-        System.out.println("You lose :(");
+        in.close();
     }
 }

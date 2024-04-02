@@ -7,43 +7,47 @@ import java.util.Scanner;
 
 public class Board {
     // properties
-    private PrintWriter printWriter;
+    private PrintWriter out;
     private Scanner in;
     private Random rng;
 
+    private static int highscore = 1; // static variable to keep track of the highscore across multiple games
+
     private int[][] board;
     private boolean legalMove;
-    private int numberOfField;
-    private boolean isWin;
+    private int freeCells;
+    private boolean isWon;
 
-    private int[] headPos;
+    private int[] headPosition;
     
-    // actions
+    // public methods
+
     /**
      * Constructor for the board. Creates a N x N matrices, places the head 
      * of the snake, and places food.
      * 
-     * @param N size of the board is N x N
+     * @param N size of the board is N x M
+     * @param M size of the board is N x M
      */
-    public Board(int N) {
-        this.printWriter = new PrintWriter(System.out, true);
+    public Board(int N, int M) {
+        this.out = new PrintWriter(System.out, true);
         this.in = new Scanner(System.in);
         this.rng = new Random();
-
-        this.board = new int[N][N];
+        this.isWon = false;
         this.legalMove = true;
-        this.headPos = new int[2];
+        this.board = new int[N][M];
+        this.headPosition = new int[2];
+
         this.initBoard();
-        this.numberOfField = N * N - 1;
-        this.isWin = false;
+        this.freeCells = N * M - 1; 
         this.putFood();
     }
 
     /**
      * Convenience constructor for the board with N = 9.
      */
-    public Board() {
-        this(9);
+    public Board(int N) {
+        this(N, N);
     }
 
     /**
@@ -54,7 +58,7 @@ public class Board {
      * Field:       ⬛ (U+2B1B)  
      */
     public void printBoard() {
-        int boardMax = this.headValue();
+        int boardMax = this.snakeLength();
         for (int[] row : this.board) {
             String toPrint = "";
             for (int cell : row) {
@@ -68,7 +72,7 @@ public class Board {
                     toPrint += "🟩";
                 }
             }
-            this.printWriter.println(toPrint); // we need to use printWriter.println() instead of System.out.println() to avoid the Unicode characters being printed as question marks
+            this.out.println(toPrint); // we need to use PrintWriter.println() instead of System.out.println() to avoid the Unicode characters being printed as question marks
         }
     }
 
@@ -83,10 +87,10 @@ public class Board {
         while (!isValidInput) { // input loop
             System.out.println("Enter w, a, s, or d to move:");
             move = in.nextLine();
-            isValidInput = this.validateInput(move);
+            isValidInput = validateInput(move);
         }
-        int[] newPosition = this.calculateNewPosition(move);
-        this.handleMove(newPosition);
+        int[] newPosition = calculateNewPosition(move);
+        handleMove(newPosition);
     }
 
     /**
@@ -104,14 +108,54 @@ public class Board {
      * @return true if the game is won, false otherwise.
      */
     public boolean checkWin() {
-        return this.isWin;
+        return this.isWon;
+    }
+
+    public int getHightscore() {
+        return highscore;
     }
 
     /**
-     * Check whether the move is legal
+     * Get the value of the head (aka the snake's length)
+     * 
+     * @return value of the head
+     */
+    public int snakeLength() {
+        return getCell(this.headPosition[0], this.headPosition[1]);
+    }
+
+    // private methods
+
+    private int getWidth() {
+        return this.board.length;
+    }
+
+    private int getHeight() {
+        return this.board[0].length;
+    }
+
+    /**
+     * Set the value of a specific cell on the board.
+     * 
+     * @param i The row index of the cell.
+     * @param j The column index of the cell.
+     * @param value The value to set for the cell.
+     */
+    private void setCell(int i, int j, int value) {
+        if (i < getWidth() && j < getHeight() && i >= 0 && j >= 0) { // perform bounds check
+            this.board[i][j] = value;
+        }
+    }
+
+    private int getCell(int i, int j) {
+        return this.board[i][j];
+    }
+
+    /**
+     * Check whether the move is valid
      * 
      * @param move user input
-     * @return true if the input is legal
+     * @return true if the input is valid
      */
     private boolean validateInput(String move) {
         return move.equals("w") || move.equals("a") || move.equals("s") || move.equals("d");
@@ -122,14 +166,14 @@ public class Board {
      * at a random position.
      */
     private void initBoard() {
-        for (int i = 0; i < this.board.length; i++) {
-            for (int j = 0; j < this.board[i].length; j++) {
-                this.board[i][j] = 0; // note that we cannot iterate using (int cell : row) because we need to modify the cell _value_
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                setCell(i, j, 0); // note that we cannot iterate using (int cell : row) because we need to modify the cell _value_
             }
         }
-        this.headPos[0] = rng.nextInt(this.board.length);
-        this.headPos[1] = rng.nextInt(this.board[0].length);
-        this.board[this.headPos[0]][this.headPos[1]] = 1; // snake
+        this.headPosition[0] = rng.nextInt(getWidth());
+        this.headPosition[1] = rng.nextInt(getHeight());
+        setCell(this.headPosition[0], this.headPosition[1], 1); // snake
     }
 
     /**
@@ -139,7 +183,7 @@ public class Board {
      * @return The new position of the snake's head as an array of two integers.
      */
     private int[] calculateNewPosition(String move) {
-        int[] newPosition = Arrays.copyOf(this.headPos, 2);
+        int[] newPosition = Arrays.copyOf(this.headPosition, 2);
         switch (move) {
             case "w":
                 newPosition[0]--; // move up
@@ -164,15 +208,15 @@ public class Board {
         // check if there is space
         if (!this.isThereSpace()) { 
             // when no space to put food, we win!
-            this.isWin = true;
+            this.isWon = true;
             return; // do nothing
         }
         while (true) { // there are better ways to do this
             int i = rng.nextInt(this.board.length);
             int j = rng.nextInt(this.board[i].length);
-            if (this.board[i][j] == 0) {
-                this.board[i][j] = -1;
-                this.numberOfField -= 1;
+            if (getCell(i, j) == 0) {
+                setCell(i, j, -1);
+                this.freeCells -= 1;
                 return;
             }
         }
@@ -184,7 +228,7 @@ public class Board {
      * @return true if there is free space, false otherwise.
      */
     private boolean isThereSpace() {
-        return this.numberOfField != 0;
+        return this.freeCells != 0;
     }
 
     /**
@@ -196,20 +240,20 @@ public class Board {
     private void handleMove(int[] newPosition) {
         int row = newPosition[0];
         int col = newPosition[1];
-        if (row < 0 || row >= board.length || col < 0 || col >= board[row].length) { // check bounds
-            this.legalMove = false;  // strictly speaking, this is not necessary, but it makes the code more readable
+        if (row < 0 || row >= getWidth() || col < 0 || col >= getHeight()) { // check bounds
+            this.legalMove = false;
         } else {
-            int oldValue = this.headValue();
+            int oldValue = this.snakeLength();
             int newValue = oldValue + 1; // we increment the value of the snake's head by one, so that after one round of starving, it has effectively moved forward by one cell, unless it has eaten food, in which case it grows by one cell in the moving direction.
-            switch (board[row][col]) {
+            switch (getCell(row, col)) {
                 case -1: // food
-                    board[row][col] = newValue; // move by one cell
+                    setCell(row, col, newValue); // move by one cell
                     this.feedSnake(); // this offsets the starving of the snake which always takes place after moving
                     this.putFood();
                     this.legalMove = true;
                     break;
                 case 0: // field
-                    board[row][col] = newValue; // move by one cell
+                    setCell(row, col, newValue); // move by one cell
                     this.legalMove = true;
                     break;
                 default: // snake
@@ -217,8 +261,13 @@ public class Board {
                     break;
             }
         }
-        this.headPos = newPosition;
-        this.starveSnake();
+        if (this.legalMove) {
+            this.headPosition = newPosition;
+            this.starveSnake();
+            if (this.snakeLength() > highscore) {
+                highscore = this.snakeLength();
+            }
+        }
     }
 
     /**
@@ -226,32 +275,24 @@ public class Board {
      * If the value of a cell becomes 0, the snake has moved off that cell.
      */
     private void starveSnake() {
-        for (int i = 0; i < this.board.length; i++) {
-            for (int j = 0; j < this.board[i].length; j++) {
-                if (this.board[i][j] > 0) {
-                    this.board[i][j]--; 
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if (getCell(i, j) > 0) {
+                    setCell(i, j, this.board[i][j] - 1);
                 }
             }
         }
-    }
-
-    /**
-     * Get the value of the head
-     * 
-     * @return value of the head
-     */
-    private int headValue() {
-        return this.board[this.headPos[0]][this.headPos[1]];
     }
 
    /**
      * Feed the snake by incrementing the value of each cell in the body by 1.
      */
     private void feedSnake() {
-        for (int i = 0; i < this.board.length; i++) {
-            for (int j = 0; j < this.board[i].length; j++) {
-                if (this.board[i][j] > 0) {
-                    this.board[i][j]++; // note that we cannot iterate using (int cell : row) because we need to modify the cell _value_
+        for (int i = 0; i < getWidth(); i++) {
+            for (int j = 0; j < getHeight(); j++) {
+                if (getCell(i, j) > 0) {
+                    setCell(i, j, getCell(i, j) + 1);
+                    // note that we cannot iterate using (int cell : row) because we need to modify the cell _value_
                 }
             }
         }
