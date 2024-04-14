@@ -38,7 +38,6 @@ public class NRooks {
 
     public static boolean isComplete(boolean[][] board) {
         int target = board.length;
-
         int count = 0;
         for(boolean[] row: board) {
             for(boolean v: row) {

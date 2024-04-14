@@ -25,6 +25,7 @@ public class Matrix extends AbstractMatrix{
         return this.data[row][col];
     }
 
+    // TODO: implement this in-place
     public Matrix transpose() {
         Matrix result = new Matrix(this.getCols(), this.getRows());
         for (int i = 0; i < this.getRows(); i++) {
