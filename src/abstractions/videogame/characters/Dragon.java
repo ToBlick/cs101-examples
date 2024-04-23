@@ -38,7 +38,7 @@ public class Dragon extends Character {
 
     public void attack(Character target) {
         flying = false;
-        target.getHitByAttack(10 + bonusDamage, DamageTypes.FIRE);
+        target.getHitByAttack(baseDamage + bonusDamage, DamageTypes.FIRE);
         bonusDamage = 0;
         System.out.println(this.toString() + " 🔥 " + target.toString());
         System.out.println(health + "   " + target.getHealth());

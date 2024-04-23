@@ -14,9 +14,9 @@ public class Play {
     static Random rand = new Random();
     public static void main(String[] args) {
         System.out.println("What character would you like to play as?");
-        String character = in.nextLine();
+        String selectedCharacter = in.nextLine();
         Character Player;
-        switch (character) {
+        switch (selectedCharacter) {
             case "Knight":
                 Player = new Knight();
                 break;

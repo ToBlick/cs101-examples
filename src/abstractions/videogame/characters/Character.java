@@ -13,9 +13,9 @@ public abstract class Character {
 
     public abstract void info();
 
-    public abstract void attack(Character target);
+    public abstract void attack(Character t);
     public abstract void defend();
-    public abstract void special(Character target);
+    public abstract void special(Character t);
     public abstract boolean handleImmunity();
     public abstract String getName();
 

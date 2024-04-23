@@ -14,7 +14,7 @@ public class Scarf extends Item implements Usable, Equipment {
     }
 
     public Scarf() {
-        this.name = "Magic Sword";
+        this.name = "Scarf";
         this.value = 100;
         this.weight = 5;
     }
