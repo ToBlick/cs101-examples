@@ -1,4 +1,4 @@
-package edu.nyu.cs.foo;
+package recursion;
 
 import java.util.Scanner;
 
@@ -39,6 +39,7 @@ public class TicTacToe {
       int col = Integer.parseInt(vals[1]) - 1; // get the column
 
       int[] usersMove = { row, col };
+      scn.close();
       return usersMove;
 
   }

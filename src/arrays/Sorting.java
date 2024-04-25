@@ -8,7 +8,7 @@ public class Sorting {
 
     public static void main(String[] args) {
 
-        int n = (int) 1e2;
+        int n = (int) 1e4;
         int[] numbers = getRandomNumbers(n, n);
 
         // The Java method
