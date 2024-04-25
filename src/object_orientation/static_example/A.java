@@ -1,4 +1,4 @@
-package static_example;
+package object_orientation.static_example;
 
 public class A {
 	public A() {

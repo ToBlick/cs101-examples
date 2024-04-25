@@ -1,4 +1,4 @@
-package snake_game;
+package object_orientation.snake_game;
 
 import java.io.PrintWriter;
 import java.util.Arrays;

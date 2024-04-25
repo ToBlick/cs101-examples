@@ -1,4 +1,4 @@
-package cars;
+package object_orientation.cars;
 
 public class PlayWithCars {
 

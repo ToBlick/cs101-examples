@@ -1,7 +1,7 @@
-package videogame.backpack;
+package abstractions.videogame.backpack;
 
-import videogame.mechanics.EffectTypes;
-import videogame.mechanics.Effect;
+import abstractions.videogame.mechanics.EffectTypes;
+import abstractions.videogame.mechanics.Effect;
 
 public class Scarf extends Item implements Usable, Equipment {
 

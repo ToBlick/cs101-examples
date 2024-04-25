@@ -1,12 +1,12 @@
-package videogame;
+package abstractions.videogame;
 
 import java.util.Random;
 import java.util.Scanner;
 
-import videogame.characters.Character;
-import videogame.characters.Dragon;
-import videogame.characters.Knight;
-import videogame.characters.Wizard;
+import abstractions.videogame.characters.Character;
+import abstractions.videogame.characters.Dragon;
+import abstractions.videogame.characters.Knight;
+import abstractions.videogame.characters.Wizard;
 
 public class Play {
 

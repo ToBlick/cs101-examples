@@ -1,4 +1,4 @@
-package points;
+package object_orientation.points;
 
 /**
  * Instantiates two Point objects and outputs their coordinates.

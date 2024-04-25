@@ -1,4 +1,4 @@
-package abstract_matrices;
+package abstractions.abstract_matrices;
 
 
 public class Matrix extends AbstractMatrix{

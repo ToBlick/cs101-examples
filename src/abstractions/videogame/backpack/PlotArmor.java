@@ -1,4 +1,4 @@
-package videogame.backpack;
+package abstractions.videogame.backpack;
 
 public class PlotArmor extends Item implements Equipment{
 

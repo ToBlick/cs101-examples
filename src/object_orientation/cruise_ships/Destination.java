@@ -1,4 +1,4 @@
-package cruise_ships;
+package object_orientation.cruise_ships;
 
 /**
  * A destination that a CruiseShip might try to reach

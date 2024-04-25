@@ -1,4 +1,4 @@
-package rockets;
+package object_orientation.rockets;
 
 public class PlayWithRockets {
 

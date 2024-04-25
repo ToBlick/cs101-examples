@@ -1,4 +1,4 @@
-package zoo;
+package object_orientation.zoo;
 
 /**
 * A simple representation of a zoo

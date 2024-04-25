@@ -1,4 +1,4 @@
-package abstract_matrices;
+package abstractions.abstract_matrices;
 
 import java.util.ArrayList;
 

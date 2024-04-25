@@ -1,4 +1,4 @@
-package cats;
+package object_orientation.cats;
 
 /**
  * A template from which to make Cat objects

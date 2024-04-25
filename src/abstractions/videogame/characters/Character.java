@@ -1,6 +1,6 @@
-package videogame.characters;
+package abstractions.videogame.characters;
 
-import videogame.mechanics.DamageTypes;
+import abstractions.videogame.mechanics.DamageTypes;
 
 public abstract class Character {
 

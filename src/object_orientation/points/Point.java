@@ -1,4 +1,4 @@
-package points;
+package object_orientation.points;
 
 /**
  * A point in 3-dimensional space.  The z property is static, therefore shared by all points.

@@ -1,6 +1,6 @@
-package videogame.backpack;
+package abstractions.videogame.backpack;
 
-import videogame.mechanics.Effect;
+import abstractions.videogame.mechanics.Effect;
 
 public interface Usable {
 

@@ -1,4 +1,4 @@
-package videogame.backpack;
+package abstractions.videogame.backpack;
 
 public abstract class Item {
 

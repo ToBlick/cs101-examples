@@ -1,4 +1,4 @@
-package cats;
+package object_orientation.cats;
 
 public class TestCats {
 

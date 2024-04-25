@@ -1,4 +1,4 @@
-package cruise_ships;
+package object_orientation.cruise_ships;
 
 /**
  * A wrapper around a main method where we test out a few CruiseShip objects.

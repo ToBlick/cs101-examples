@@ -1,4 +1,4 @@
-package matrices;
+package object_orientation.matrices;
 
 public class Matrix {
 

@@ -1,4 +1,4 @@
-package rockets;
+package object_orientation.rockets;
 
 /**
  * A model of a rocket

@@ -1,4 +1,4 @@
-package snake_game;
+package object_orientation.snake_game;
 
 import java.util.Scanner;
 

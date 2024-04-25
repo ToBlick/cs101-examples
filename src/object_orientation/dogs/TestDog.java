@@ -1,4 +1,4 @@
-package dogs;
+package object_orientation.dogs;
 
 public class TestDog {
 

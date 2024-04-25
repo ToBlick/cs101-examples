@@ -1,4 +1,4 @@
-package videogame.mechanics;
+package abstractions.videogame.mechanics;
 
 public enum DamageTypes {
     FIRE, MAGIC, SWORD

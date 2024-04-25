@@ -1,4 +1,4 @@
-package zoo;
+package object_orientation.zoo;
 
 /**
  * A wrapper around a main method used to test the Zoo class.

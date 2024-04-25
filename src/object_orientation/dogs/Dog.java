@@ -1,4 +1,4 @@
-package dogs;
+package object_orientation.dogs;
 
 /**
  * A virtual representation of the concept, Dog.
