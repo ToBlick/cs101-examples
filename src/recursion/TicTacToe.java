@@ -41,7 +41,6 @@ public class TicTacToe {
       int[] usersMove = { row, col };
       scn.close();
       return usersMove;
-
   }
 
 

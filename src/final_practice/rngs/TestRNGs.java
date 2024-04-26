@@ -14,16 +14,29 @@ public class TestRNGs {
     }
 
     public static void main(String[] args) {
-        int seed = 1; // normally would do something like Integer.parseInt(args[0]); here
+        int seed = 1234; // normally would do something like Integer.parseInt(args[0]); here
         try {
             new MLCG(seed);
         } catch (IllegalArgumentException e) {
             System.err.println(e.getMessage());
-            System.err.println("Using default seed 123.");
-            seed = 123; // default seed
+            System.err.println("Using default seed 1234.");
+            seed = 1234; // default seed
         } // try/catch block is not asked in the problem statement but illustrates the point of the exception
-        RandomNumberGenerator r = new MLCG(seed);
-        int[] counts = testRNG(r, 10_000);
-        System.err.println(Arrays.toString(counts));
+        MLCG r1 = new MLCG(seed);
+        VonNeumannRNG r2 = new VonNeumannRNG(seed);
+        RNGWrapper r3 = new RNGWrapper(seed);
+        r2.nextInt();
+        RandomNumberGenerator[] myRNGs = {r1, r2, r3};
+        for (int i = 0; i < 100; i++) {
+            System.err.println(r2.nextInt());
+        }
+        for (RandomNumberGenerator r : myRNGs) {
+            int[] counts = testRNG(r, 10_000);
+            System.err.println(Arrays.toString(counts));
+        }
+        FourtyTwo theWorstRNGEver = new FourtyTwo();
+        for (int i = 0; i < 3; i++) {
+            System.err.println(theWorstRNGEver.nextDouble());
+        }
     }
 }
