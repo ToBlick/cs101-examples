@@ -14,6 +14,7 @@ public class Switching{
             	// fallthrough
             case "Tamil":
             	System.out.println("I speak " + input + ", too!");
+                break;
             case "German":
                 // fallthrough
             case "Shona":
@@ -22,6 +23,7 @@ public class Switching{
                 // fallthrough
             case "French":
             	System.out.println("I speak a bit of " + input + " myself.");
+                break;
             default:
             	System.out.println("I do not know " + input + ".");
         }

@@ -9,10 +9,12 @@ public class Simulation {
         this.particles = particles;
         this.dt = dt;
     }
+    
 
     public void updatePositions() {
         for (Particle p : particles) {
             p.move(dt);
+            
             if (p.getPosition() < 0) {
                 p.setVelocity(-p.getVelocity());
             } else if (p.getPosition() > 1) {
@@ -25,7 +27,7 @@ public class Simulation {
     public void updateVelocities() {
         for (int i = 0; i < particles.length; i++) {
             for (int j = i + 1; j < particles.length; j++) {
-                double distance = particles[i].getDistance(particles[j]);
+                double distance = this.particles[i].getDistance(particles[j]);
                 if (distance < 0.01) {
                     double temp = particles[i].getVelocity();
                     particles[i].setVelocity(particles[j].getVelocity());
@@ -83,6 +85,23 @@ public class Simulation {
             }
         }
         System.out.print("|");
+    }
+
+    public static void main(String[] args) {
+        Particle[] particles = new Particle[10];
+        for (int i = 0; i < particles.length; i++) {
+            // particles[i] = new Particle(Math.random(), 0); // for Coulomb
+            particles[i] = new Particle(Math.random(), Math.random()); // for collisions
+        }
+        Simulation sim = new Simulation(particles, 0.005);
+        for (int i = 0; i < 100; i++) {
+            sim.updatePositions();
+            sim.updateVelocities();
+            // sim.updateVelocitiesCoulomb();
+            sim.sortParticles();
+            sim.printParticles();
+            System.out.println();
+        }
     }
 
 }

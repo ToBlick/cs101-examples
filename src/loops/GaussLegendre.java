@@ -21,8 +21,8 @@ public class GaussLegendre {
 
 		int i = 0;
 		// stopping criterion
-		double tol = 1e-3;
-		int max_it = 100;
+		double tol = 1e-2;
+		int max_it = 10;
 
 		while (error > tol && i < max_it) {
 			double a_old = a;
