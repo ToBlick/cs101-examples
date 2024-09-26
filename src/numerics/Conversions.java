@@ -11,6 +11,7 @@ public class Conversions {
         // int j = 12.3; Does not work 
         float f = 12;
         System.out.println("f == " + f); // 12.0
+        // sin(12)
         System.out.println("sin(i) == " + Math.sin(i)); // -0.5365729180004349
 
         int big = 1234567890;
