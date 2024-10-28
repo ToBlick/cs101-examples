@@ -53,7 +53,7 @@ public class Wordle {
             // determine if user has won
             if (solution.equals(guess)) {
                 game_won = true;
-                System.out.println("You win :H)");
+                System.out.println("You win :)");
             }
             // determine if user has lost
             if (tries_left == 0) {

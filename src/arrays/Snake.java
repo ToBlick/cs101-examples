@@ -263,7 +263,7 @@ public class Snake {
      */
     public static void main(String[] args) {
 
-        int N = 9; // size of the board is N x N
+        int N = 5; // size of the board is N x N
 
         int[][] myBoard = new int[N][N];
         initBoard(myBoard);

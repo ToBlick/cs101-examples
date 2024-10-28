@@ -144,7 +144,6 @@ public class EvenBetterWordle {
         // Ask for input
         System.out.println("Please enter your guess in all caps:");
         while (!game_won && tries_left > 0) {
-
             String guess = in.nextLine();
             if (!inputIsValid(guess)) continue;
             displayOutput(guess, solution);

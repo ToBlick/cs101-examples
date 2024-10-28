@@ -8,43 +8,51 @@ public class Sorting {
 
     public static void main(String[] args) {
 
-        int n = (int) 1e4;
-        int[] numbers = getRandomNumbers(n, n);
+        int a = 0/0;
+
+        int N = (int) 1e4; // 10000
+        int[] numbers = getRandomNumbers(N, N);
 
         // The Java method
-        int[] sortednumbers = Arrays.copyOf(numbers, n);
+        int[] sortednumbers = Arrays.copyOf(numbers, N);
         long startTime = System.nanoTime();
         Arrays.sort(sortednumbers);
         long endTime   = System.nanoTime();
         long totalTime = endTime - startTime;
-        printTime("Array's sort", totalTime, n);
+        printTime("Array's sort", totalTime, N);
 
         // Insertionsort
-        int[] insertionsortednumbers = Arrays.copyOf(numbers, n);
+        int[] insertionsortednumbers = Arrays.copyOf(numbers, N);
         startTime = System.nanoTime();
         insertionsort(insertionsortednumbers);
         endTime   = System.nanoTime();
         totalTime = endTime - startTime;
-        if (!Arrays.equals(sortednumbers, insertionsortednumbers)) System.out.println("Incorrect Insertionsort!");
-        printTime("Insertionsort", totalTime, n);
+        if (!Arrays.equals(sortednumbers, insertionsortednumbers)) { 
+            System.out.println("Incorrect Insertionsort!");
+        }
+        printTime("Insertionsort", totalTime, N);
 
         // Bubblesort
-        int[] bubblesortednumbers = Arrays.copyOf(numbers, n);
+        int[] bubblesortednumbers = Arrays.copyOf(numbers, N);
         startTime = System.nanoTime();
         bubblesort(bubblesortednumbers);
         endTime   = System.nanoTime();
         totalTime = endTime - startTime; 
-        if (!Arrays.equals(sortednumbers, bubblesortednumbers)) System.out.println("Incorrect Bubblesort!");
-        printTime("Bubblesort", totalTime, n);
+        if (!Arrays.equals(sortednumbers, bubblesortednumbers)) {
+            System.out.println("Incorrect Bubblesort!");
+        }
+        printTime("Bubblesort", totalTime, N);
         
         // Quicksort
-        int[] quicksortednumbers = Arrays.copyOf(numbers, n);
+        int[] quicksortednumbers = Arrays.copyOf(numbers, N);
         startTime = System.nanoTime();
         quicksort(quicksortednumbers);
         endTime   = System.nanoTime();
         totalTime = endTime - startTime;
-        if (!Arrays.equals(sortednumbers, quicksortednumbers)) System.out.println("Incorrect Quicksort!");
-        printTime("Quicksort", totalTime, n);
+        if (!Arrays.equals(sortednumbers, quicksortednumbers)) {
+            System.out.println("Incorrect Quicksort!");
+        }
+        printTime("Quicksort", totalTime, N);
     }
 
     /**

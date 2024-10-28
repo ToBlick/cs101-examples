@@ -10,7 +10,6 @@ public class RowColumn {
 
     public static void main(String[] args) {
         
-
         int n = 10_000;
         int m = 10_000;
         int[][] myArray = new int[n][m];
@@ -18,19 +17,17 @@ public class RowColumn {
         long startTime = System.nanoTime();
         for (int i=0; i<n; i++) {
             for (int j=0; j<m; j++) {
-                myArray[i][j] = 0;
-                
+                myArray[i][j] = 1;
             }
         }
         long endTime   = System.nanoTime();
         long totalTime = endTime - startTime;
         printTime("i then j", totalTime);
 
-
         startTime = System.nanoTime();
         for (int j=0; j<m; j++) {
             for (int i=0; i<n; i++) {  
-                myArray[i][j] = 0;
+                myArray[i][j] = 1;
             }
         }
         endTime   = System.nanoTime();
