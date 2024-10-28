@@ -96,7 +96,7 @@ public class Matrix {
     }
 
     public String toString() {
-        return "Matrix with " + this.getRows() + " getRows() and " + this.getCols() + " columns.";
+        return "Matrix with " + this.getRows() + " and " + this.getCols() + " columns.";
     }
 
     public boolean equals(Matrix other) {
