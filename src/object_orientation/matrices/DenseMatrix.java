@@ -1,12 +1,12 @@
 package object_orientation.matrices;
 
-public class Matrix {
+public class DenseMatrix {
 
     private int[][] data;
     private int rows;
     private int cols;
 
-    public Matrix(int rows, int cols) {
+    public DenseMatrix(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.data = new int[rows][cols];
@@ -38,12 +38,12 @@ public class Matrix {
         }
     }
 
-    public Matrix add(Matrix other) {
+    public DenseMatrix add(DenseMatrix other) {
         if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {
             System.out.println("Error: dimensions must agree.");
             return null;
         }
-        Matrix result = new Matrix(this.getRows(), this.getCols());
+        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getCols(); j++) {
                 result.setIndex(i, j, this.getIndex(i, j) + other.getIndex(i, j));
@@ -52,12 +52,12 @@ public class Matrix {
         return result;
     }
 
-    public Matrix subtract(Matrix other) {
+    public DenseMatrix subtract(DenseMatrix other) {
         if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {
             System.out.println("Error: dimensions must agree.");
             return null;
         }
-        Matrix result = new Matrix(this.getRows(), this.getCols());
+        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getCols(); j++) {
                 result.setIndex(i, j, this.getIndex(i, j) - other.getIndex(i, j));
@@ -66,13 +66,13 @@ public class Matrix {
         return result;
     }
 
-    public Matrix multiply(Matrix other) {
+    public DenseMatrix multiply(DenseMatrix other) {
         if (this.getCols() != other.getRows()) {
             System.out.println("Error: dimensions must agree.");
             return null;
         }
         int sum;
-        Matrix result = new Matrix(this.getRows(), other.getCols());
+        DenseMatrix result = new DenseMatrix(this.getRows(), other.getCols());
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < other.getCols(); j++) {
                 sum = 0;
@@ -85,8 +85,8 @@ public class Matrix {
         return result;
     }
 
-    public Matrix multiply(int a) {
-        Matrix result = new Matrix(this.getRows(), this.getCols());
+    public DenseMatrix multiply(int a) {
+        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getCols(); j++) {
                 result.setIndex(i, j, a * this.getIndex(i, j));
@@ -99,7 +99,7 @@ public class Matrix {
         return "Matrix with " + this.getRows() + " and " + this.getCols() + " columns.";
     }
 
-    public boolean equals(Matrix other) {
+    public boolean equals(DenseMatrix other) {
         if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {
             return false;
         }
@@ -129,8 +129,8 @@ public class Matrix {
         }
     }
 
-    public Matrix transpose() {
-        Matrix result = new Matrix(this.getCols(), this.getRows());
+    public DenseMatrix transpose() {
+        DenseMatrix result = new DenseMatrix(this.getCols(), this.getRows());
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getCols(); j++) {
                 result.setIndex(j, i, this.getIndex(i, j));
@@ -139,12 +139,12 @@ public class Matrix {
         return result;
     }
 
-    public Matrix invert() {
+    public DenseMatrix invert() {
         if (this.getRows() != this.getCols()) {
             System.out.println("Error: matrix must be square to invert.");
             return null;
         }
-        Matrix result = new Matrix(this.getRows(), this.getCols());
+        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
         // TODO ...
 
         return result;

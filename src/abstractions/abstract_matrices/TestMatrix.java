@@ -8,12 +8,12 @@ public class TestMatrix {
 
         int n = 5;
 
-        Matrix m = new Matrix(n, n);
+        DenseMatrix m = new DenseMatrix(n, n);
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 m.setIndex(i, j, i + j);
             }
-        }        
+        }
         m.print();
         System.out.println();
 

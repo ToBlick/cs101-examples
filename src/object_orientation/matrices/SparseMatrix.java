@@ -18,7 +18,7 @@ public class SparseMatrix {
         this.data = new ArrayList<Integer>();
     }
 
-    public SparseMatrix(Matrix matrix) {
+    public SparseMatrix(DenseMatrix matrix) {
         this.rows = matrix.getRows();
         this.cols = matrix.getCols();
         this.rowIndices = new ArrayList<Integer>();
@@ -43,8 +43,8 @@ public class SparseMatrix {
         return this.data.size();
     }
 
-    public Matrix toMatrix() {
-        Matrix result = new Matrix(this.getRows(), this.getCols());
+    public DenseMatrix toMatrix() {
+        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
         for (int k = 0; k < this.data.size(); k++) {
             result.setIndex(this.rowIndices.get(k), this.colIndices.get(k), this.data.get(k));
         }
@@ -109,7 +109,7 @@ public class SparseMatrix {
         return true;
     }
 
-    public boolean equals(Matrix other) {
+    public boolean equals(DenseMatrix other) {
         if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {
             return false;
         }
@@ -155,13 +155,13 @@ public class SparseMatrix {
         }
     }
 
-    public Matrix multiply(Matrix other) throws IllegalArgumentException{
+    public DenseMatrix multiply(DenseMatrix other) throws IllegalArgumentException{
         if (this.getCols() != other.getRows()) {
             throw new IllegalArgumentException("Matrices cannot be multiplied.");
         }
         int r;
         int s;
-        Matrix result = new Matrix(this.getRows(), other.getCols());
+        DenseMatrix result = new DenseMatrix(this.getRows(), other.getCols());
         for (int k = 0; k < this.data.size(); k++) {
             r = this.rowIndices.get(k);
             for (int l = 0; l < other.getCols(); l++) {

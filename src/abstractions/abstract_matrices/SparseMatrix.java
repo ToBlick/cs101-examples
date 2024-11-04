@@ -2,6 +2,8 @@ package abstractions.abstract_matrices;
 
 import java.util.ArrayList;
 
+import object_orientation.matrices.DenseMatrix;
+
 public class SparseMatrix extends AbstractMatrix{
 
     private ArrayList<Integer> rowIndices;
@@ -51,19 +53,10 @@ public class SparseMatrix extends AbstractMatrix{
         return 0;
     }
 
-    public boolean equals(AbstractMatrix other) {
-        if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {
-            return false;
-        }
-        for (int i = 0; i < this.getRows(); i++) {
-            for (int j = 0; j < this.getCols(); j++) {
-                if (this.getIndex(i, j) != other.getIndex(i, j)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+    // public boolean equals(SparseMatrix other) {
+    //     // TODO: Implement equals to other Sparse Matrix that is much faster.
+    //     // Only needs a loop of size #nonzeroelements
+    // }
     
     public SparseMatrix transpose() {
         SparseMatrix result = new SparseMatrix(this.getCols(), this.getRows());
@@ -75,8 +68,8 @@ public class SparseMatrix extends AbstractMatrix{
 
     // 
 
-    public Matrix toMatrix() {
-        Matrix result = new Matrix(this.getRows(), this.getCols());
+    public DenseMatrix toMatrix() {
+        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
         for (int k = 0; k < this.data.size(); k++) {
             result.setIndex(this.rowIndices.get(k), this.colIndices.get(k), this.data.get(k));
         }
