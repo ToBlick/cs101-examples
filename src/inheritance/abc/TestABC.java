@@ -5,9 +5,13 @@ public class TestABC {
     public static void main(String[] args) {
 
         B myB = new B();
-        System.out.println( myB.getMessage() );
+        // System.out.println( myB.getMessage() );
 
-        // C myC = new C( "Welcome!!" );
+
+        // C myC = new C();
+        // System.out.println( myC.getMessage() );
+
+        C myC = new C( "Welcome!!" );
         // System.out.println( myC.getMessage() );
 
         // if (myC instanceof C && myC instanceof B && myC instanceof A) {
@@ -35,8 +39,5 @@ public class TestABC {
                 sameObjsAsBType.doSomethingDifferent();
             }
         }
-
-
     }
-
 }
