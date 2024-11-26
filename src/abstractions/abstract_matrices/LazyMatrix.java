@@ -1,6 +1,5 @@
 package abstractions.abstract_matrices;
 
-
 import java.util.function.BiFunction;
 
 public class LazyMatrix extends AbstractMatrix{

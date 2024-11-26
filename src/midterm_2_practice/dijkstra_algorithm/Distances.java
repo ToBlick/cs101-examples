@@ -134,7 +134,6 @@ public class Distances {
                     }
                 }
             }
-
             visited.add(current);
             unvisited.remove(unvisited.indexOf(current));
         }

@@ -15,66 +15,66 @@ public class Play {
     public static void main(String[] args) {
         System.out.println("What character would you like to play as?");
         String selectedCharacter = in.nextLine();
-        Character Player;
+        Character player;
         switch (selectedCharacter) {
             case "Knight":
-                Player = new Knight();
+                player = new Knight();
                 break;
             case "Wizard":
-                Player = new Wizard();
+                player = new Wizard();
                 break;
             case "Dragon":
-                Player = new Dragon();
+                player = new Dragon();
                 break;
             default:
                 System.out.println("Invalid character. Defaulting to Knight.");
-                Player = new Knight();
+                player = new Knight();
                 break;
         }
-        Character Opponent = getOpponent(Player);
-        System.out.println(Player.toString() + "\t \t" + Opponent.toString());
+        Character opponent = getOpponent(player);
+        System.out.println(player.toString() + "\t \t" + opponent.toString());
         System.out.println("Type 1 to attack, 2 to defend, 3 for special abilities, and ? for help.");;
-        while (Player.getHealth() > 0 && Opponent.getHealth() > 0) {
+        while (player.getHealth() > 0 && opponent.getHealth() > 0) {
             boolean askingForInput = true;
             while (askingForInput) {
                 String action = in.nextLine();
                 switch (action) {
                     case "1":
-                        Player.attack(Opponent);
+                        player.attack(opponent);
                         askingForInput = false;
                         break;
                     case "2":
-                        Player.defend();
+                        player.defend();
                         askingForInput = false;
                         break;
                     case "3":
-                        Player.special(Opponent);
+                        player.special(opponent);
                         askingForInput = false;
                         break;
                     case "?":
-                        Player.info();
+                        player.info();
                         break;
                     default:
                         System.out.println("Invalid action. Type 1 to attack, 2 to defend, 3 for special abilities, and ? for help.");
                         break;
                 }
             }
-            if (Opponent.getHealth() > 0) {
+            if (opponent.getHealth() > 0) {
                 switch (rand.nextInt(3)) {
                     case 0:
-                        Opponent.attack(Player);
+                        opponent.attack(player);
                         break;
                     case 1:
-                        Opponent.defend();
+                        opponent.defend();
                         break;
                     default:
-                        Opponent.special(Player);
+                        opponent.special(player);
                         break;
                 }
             }
         }
         System.out.println("Game over.");
-        if (Player.getHealth() > 0) {
+        if (player.getHealth() > 0) {
             System.out.println("You win!");
         } else {
             System.out.println("You lose.");

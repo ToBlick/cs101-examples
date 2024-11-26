@@ -46,7 +46,7 @@ public class Wizard extends Character {
         }
         System.out.println("The wizard casts a protection spell.");
         energy -= 5;
-        health += 10;
+        health += 15;
     }
 
     public void special(Character target) {

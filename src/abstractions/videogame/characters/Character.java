@@ -16,7 +16,9 @@ public abstract class Character {
     public abstract void attack(Character t);
     public abstract void defend();
     public abstract void special(Character t);
-    public abstract boolean handleImmunity();
+    public boolean handleImmunity() {
+        return false;
+    };
     public abstract String getName();
 
     public void getHitByAttack(int damage, DamageTypes damageType) {
