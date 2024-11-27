@@ -10,6 +10,9 @@ import java.util.Scanner;
  */
 public class TicTacToe {
 
+  public static Scanner scn = new Scanner(System.in);
+  public static int calls = 0;
+
   // a constant that represents an empty spot on the board.
   public static final String EMPTY = "-";
 
@@ -30,7 +33,7 @@ public class TicTacToe {
 
   public static int[] getUsersMove(String player) {
       System.out.println("Player " + player + ", where would you like to go?");
-      Scanner scn = new Scanner(System.in);
+      
       String response = scn.nextLine(); // get the user's response as a string
       String[] vals = response.split(","); // split the user's response by comma
 
@@ -39,7 +42,6 @@ public class TicTacToe {
       int col = Integer.parseInt(vals[1]) - 1; // get the column
 
       int[] usersMove = { row, col };
-      scn.close();
       return usersMove;
   }
 
@@ -141,6 +143,8 @@ public class TicTacToe {
   }
 
   public static int miniMax(String[][] board, boolean maximizing) {
+    calls++;
+    // System.out.println("Minimax called with calls = " + calls);
     // base case
     if (isWin(board, "X")) {
       return -10; // loss
