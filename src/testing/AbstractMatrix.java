@@ -1,4 +1,4 @@
-package abstractions.abstract_matrices;
+package testing;
 
 public abstract class AbstractMatrix {
 
@@ -28,7 +28,7 @@ public abstract class AbstractMatrix {
         return true;
     }
 
-//    public abstract AbstractMatrix transpose();
+    public abstract AbstractMatrix transpose();
 
     public void print() {
         for (int i = 0; i < this.getRows(); i++) {

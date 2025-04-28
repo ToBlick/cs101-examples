@@ -34,7 +34,7 @@ public class Images {
 
     }
 
-    public static int[][][] readImage(String path) throws Exception{
+    public static int[][][] readImage(String path) throws Exception {
         BufferedImage image = ImageIO.read(new File(path));
         int width = image.getWidth();
         int height = image.getHeight();

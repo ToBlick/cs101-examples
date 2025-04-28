@@ -55,7 +55,7 @@ public class MyRational {
     }
 
     public double toDouble() {
-        return (double) this.getNumerator() / this.denominator;
+        return ((double) this.getNumerator()) / this.denominator;
     }
 
     // Operations with Rationals

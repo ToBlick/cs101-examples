@@ -10,8 +10,8 @@ public class RowColumn {
 
     public static void main(String[] args) {
         
-        int n = 10_000;
-        int m = 10_000;
+        int n = 20_000;
+        int m = 20_000;
         int[][] myArray = new int[n][m];
 
         long startTime = System.nanoTime();

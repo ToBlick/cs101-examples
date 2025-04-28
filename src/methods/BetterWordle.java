@@ -58,7 +58,7 @@ public class BetterWordle {
             // TODO: check for input of digits, special characters, ...
             // TODO: check for valid words from dictionary
             // TODO: Hardmode
-            // TODO: Do not display dublicate characters
+            // TODO: Do not display duplicate characters
 
             displayOutput(guess, solution);
             tries_left--;

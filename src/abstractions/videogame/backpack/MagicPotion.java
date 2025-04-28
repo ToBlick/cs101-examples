@@ -3,7 +3,7 @@ package abstractions.videogame.backpack;
 import abstractions.videogame.mechanics.EffectTypes;
 import abstractions.videogame.mechanics.Effect;
 
-public class MagicPotion extends Item implements Usable{
+public class MagicPotion extends Item implements Usable {
 
     public void info() {
         System.out.println("Magic potion that restores health.");

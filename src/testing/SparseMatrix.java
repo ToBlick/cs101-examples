@@ -1,4 +1,4 @@
-package abstractions.abstract_matrices;
+package testing;
 
 import java.util.ArrayList;
 
@@ -17,17 +17,18 @@ public class SparseMatrix extends AbstractMatrix{
         this.colIndices = new ArrayList<Integer>();
         this.data = new ArrayList<Integer>();
     }
-    
-    public int getIndex(int i, int j) throws IndexOutOfBoundsException {
-        if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
-            throw new IndexOutOfBoundsException("Index out of bounds.");
-        }
-        for (int k = 0; k < this.data.size(); k++) {
-            if (this.rowIndices.get(k) == i && this.colIndices.get(k) == j) {
-                return this.data.get(k);
+
+    public SparseMatrix(double[][] data) {
+        this.rows = data.length;
+        this.cols = data[0].length;
+        this.rowIndices = new ArrayList<Integer>();
+        this.colIndices = new ArrayList<Integer>();
+        this.data = new ArrayList<Integer>();
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                this.setIndex(i, j, (int) data[i][j]);
             }
         }
-        return 0;
     }
 
     public int getNonZeroElements() {
@@ -38,7 +39,6 @@ public class SparseMatrix extends AbstractMatrix{
         if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
-        // TODO: check if this is already nonzero
         if (value == 0) {
             return;
         }
@@ -54,10 +54,22 @@ public class SparseMatrix extends AbstractMatrix{
         this.data.add(value);
     }
 
-//     public boolean equals(SparseMatrix other) {
-//         // TODO: Implement equals to other Sparse Matrix that is much faster.
-//         // Only needs a loop of size #nonzeroelements
-//     }
+    public int getIndex(int i, int j) throws IndexOutOfBoundsException {
+        if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
+            throw new IndexOutOfBoundsException("Index out of bounds.");
+        }
+        for (int k = 0; k < this.data.size(); k++) {
+            if (this.rowIndices.get(k) == i && this.colIndices.get(k) == j) {
+                return this.data.get(k);
+            }
+        }
+        return 0;
+    }
+
+    // public boolean equals(SparseMatrix other) {
+    //     // TODO: Implement equals to other Sparse Matrix that is much faster.
+    //     // Only needs a loop of size #nonzeroelements
+    // }
     
     public SparseMatrix transpose() {
         SparseMatrix result = new SparseMatrix(this.getCols(), this.getRows());

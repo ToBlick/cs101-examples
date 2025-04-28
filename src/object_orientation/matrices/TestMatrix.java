@@ -16,18 +16,18 @@ public class TestMatrix {
         m2.randomFill();
         
         m1.print();
-        System.err.println();
-        m2.print();
-        System.err.println();
-
-        DenseMatrix m3 = m1.multiply(m2);
-        m3.print();
-        System.err.println();
-
-        SparseMatrix sm1 = new SparseMatrix(n, n);
-        sm1.randomFill(2);
-        sm1.print();
-        System.err.println();
-        sm1.listPrint();
+//        System.err.println();
+//        m2.print();
+//        System.err.println();
+//
+//        DenseMatrix m3 = m1.multiply(m2);
+//        m3.print();
+//        System.err.println();
+//
+//        SparseMatrix sm1 = new SparseMatrix(n, n);
+//        sm1.randomFill(2);
+//        sm1.print();
+//        System.err.println();
+//        sm1.listPrint();
     }
 }

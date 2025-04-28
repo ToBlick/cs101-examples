@@ -13,33 +13,35 @@ public class Heron {
 
 		Scanner scn = new Scanner(System.in);
 		System.out.println("What number would you like the square root of?");
-		double S = Double.parseDouble(scn.nextLine());
+		double s = Double.parseDouble(scn.nextLine());
 		
-		if (S == 0.0) {
+		if (s == 0.0) {
             System.out.println("The square root of 0 is 0.");
 			scn.close();
             return;
-        } else if (S < 0.0) {
-			System.out.println("Negative number S entered, calculating sqrt(-S).");
-			S = -S;
+        } else if (s < 0.0) {
+			System.out.println("Negative number x entered, calculating sqrt(-S).");
+			s = -s;
 		}
 
-		System.out.println("Computing sqrt(" + S + ").");
+		System.out.println("Computing sqrt(" + s + ").");
 		scn.close();
 		// a heuristic to determine how many iterations we need
-		double tol = 0.1;
-		// Note: The default value of 1e-15 is much to small, it leads to over a million iterations!
-		// Hence, change it to something reasonable.
+		double tol = 0.01;
 		int max_it = (int) Math.sqrt(1/tol);
 
 		// initialize values
-		double x = 0.5 * S;
-		double sqrtS = Math.sqrt(S);
+		double x = 0.5 * s;
+		double sqrt_s = Math.sqrt(s);
 
 		for (int i = 1; i <= max_it; i++) {
-			x = 0.5 * (x + S/x);
+			double x_old = x;
+			x = 0.5 * (x + s/x);
 			System.out.println("After " + i + " iteration" + (i > 1 ? "s" : "") + ", the approximate value of sqrt(S) is " + x + ". ");
-			System.out.println("The relative error is " + Math.abs(x/sqrtS - 1) + ".");
+			System.out.println("The relative error is " + Math.abs(x/sqrt_s - 1) + ".");
+			System.out.println();
+			if (Math.abs(x - x_old) < 1e-6)
+				break;
 		}
 	}
 }

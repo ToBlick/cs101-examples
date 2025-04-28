@@ -144,7 +144,7 @@ public class TicTacToe {
 
   public static int miniMax(String[][] board, boolean maximizing) {
     calls++;
-    // System.out.println("Minimax called with calls = " + calls);
+    System.out.println("Minimax called with calls = " + calls);
     // base case
     if (isWin(board, "X")) {
       return -10; // loss
@@ -196,7 +196,7 @@ public class TicTacToe {
         if (board[i][j].equals(EMPTY)) {
           board[i][j] = "O";
           int score = miniMax(board, false);
-          if (score > bestScore) {
+          if (score >= bestScore) {
             bestScore = score;
             bestMove[0] = i;
             bestMove[1] = j;
