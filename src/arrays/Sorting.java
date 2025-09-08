@@ -3,15 +3,13 @@ package arrays;
 import java.util.Arrays;
 import java.util.Random;
 
-import org.junit.After;
-
 import java.util.Locale;
 
 public class Sorting {
 
     public static void main(String[] args) {
 
-        int N = (int) 2e4; // 20000
+        int N = (int) 4e4; // 40000
         int[] numbers = getRandomNumbers(N, N);
 
         // Print the first 10 numbers
