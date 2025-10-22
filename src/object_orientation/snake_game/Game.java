@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
 
-public class Board {
+public class Game {
     // properties
     private PrintWriter out;
     private Scanner in;
@@ -29,7 +29,7 @@ public class Board {
      * @param N size of the board is N x M
      * @param M size of the board is N x M
      */
-    public Board(int N, int M) {
+    public Game(int N, int M) {
         this.out = new PrintWriter(System.out, true);
         this.in = new Scanner(System.in);
         this.rng = new Random();
@@ -44,9 +44,9 @@ public class Board {
     }
 
     /**
-     * Convenience constructor for the board with N = 9.
+     * Convenience constructor for a square board.
      */
-    public Board(int N) {
+    public Game(int N) {
         this(N, N);
     }
 
@@ -112,7 +112,7 @@ public class Board {
     }
 
     public int getHightscore() {
-        return Board.highscore;
+        return Game.highscore;
     }
 
     /**
@@ -126,11 +126,11 @@ public class Board {
 
     // private methods
 
-    private int getWidth() {
+    private int getHeight() {
         return this.board.length;
     }
 
-    private int getHeight() {
+    private int getWidth() {
         return this.board[0].length;
     }
 
@@ -158,7 +158,10 @@ public class Board {
      * @return true if the input is valid
      */
     private boolean validateInput(String move) {
-        return move.equals("w") || move.equals("a") || move.equals("s") || move.equals("d");
+        return (move.equals("w") || 
+                move.equals("a") || 
+                move.equals("s") || 
+                move.equals("d"));
     }
 
     /**

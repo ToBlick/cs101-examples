@@ -5,7 +5,7 @@ public class ExpensiveLoop {
     // java -cp bin -Xint compilation.ExpensiveLoop 10000000
     // (no optimizations - interpreted)
     // Then run it with optimizations:
-    // java -cp bin -Xint compilation.ExpensiveLoop 10000000
+    // java -cp bin compilation.ExpensiveLoop 10000000
     public static void main(String[] args) {
         long sum = 0;
         long start = System.nanoTime();

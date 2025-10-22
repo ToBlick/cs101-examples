@@ -9,6 +9,7 @@ public class Switching{
         String input = scnr.nextLine();
         switch (input) {
             case "English":
+                System.out.println("Hello");
                 // fallthrough
             case "Spanish":
             	// fallthrough

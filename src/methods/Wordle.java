@@ -59,7 +59,7 @@ public class Wordle {
             if (tries_left == 0) {
                 System.out.println("You lose :(");
             }
-        }
+        } // while
         in.close(); 
     }
     

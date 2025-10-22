@@ -22,7 +22,7 @@ public class GaussLegendre {
 
 		int i = 0;
 		// stopping criterion
-		double tol = 1e-12;
+		double tol = 1e-14;
 
 		while (Math.abs(a-b) > tol) {
 			double a_old = a;

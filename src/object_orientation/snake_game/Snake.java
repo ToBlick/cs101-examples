@@ -23,7 +23,7 @@ public class Snake {
 
         while (keepPlaying) {
 
-            Board game = new Board(4,4);
+            Game game = new Game(4,4);
             while (game.legalGame()) {
                 game.printBoard();
                 game.userMove();

@@ -9,7 +9,7 @@ public class Sorting {
 
     public static void main(String[] args) {
 
-        int N = (int) 4e4; // 40000
+        int N = (int) 6e4; // 40000
         int[] numbers = getRandomNumbers(N, N);
 
         // Print the first 10 numbers
@@ -49,7 +49,7 @@ public class Sorting {
         }
         printTime("Bubblesort", totalTime, N);
 
-        // Quicksort
+        // Mergesort
         int[] mergesortednumbers = Arrays.copyOf(numbers, N);
         startTime = System.nanoTime();
         mergesort(mergesortednumbers);
