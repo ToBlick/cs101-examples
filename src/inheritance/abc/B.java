@@ -12,9 +12,17 @@ public class B extends A {
 		System.out.println( "A new B object is born!" );
 	}
 
+	public void doSomething() {
+		System.out.println("A B object doing something.");
+	}
+
     public void doSomethingDifferent() {
         System.out.println("A B object doing something *different*.");
-        // String myString = this.getMessage();
-        // System.out.println(myString);
     }
+
+	public void doThings(){
+		this.doSomething();
+		super.doSomething();
+		this.doSomethingDifferent();
+	}
 }

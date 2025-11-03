@@ -8,8 +8,7 @@ public class C extends B {
 
     // an overloaded constructor (C-specific) that accepts a message
     public C( String message) {
-        super(); // call B's no-args constructor
+        super(message); // call B's no-args constructor
         System.out.println( "A new C object is born!" );
-        this.setMessage( message );
     }
 }

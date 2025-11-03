@@ -55,32 +55,32 @@ public class MyRational {
     }
 
     public double toDouble() {
-        return ((double) this.getNumerator()) / this.denominator;
+        return ((double) this.getNumerator()) / this.getDenominator();
     }
 
     // Operations with Rationals
 
     public MyRational add(MyRational r) {
         int newNumerator = this.getNumerator() * r.getDenominator() + r.getNumerator() * this.denominator;
-        int newDenominator = this.denominator * r.getDenominator();
+        int newDenominator = this.getDenominator() * r.getDenominator();
         return new MyRational(newNumerator, newDenominator);
     }
 
     public MyRational subtract(MyRational r) {
         int newNumerator = this.getNumerator() * r.getDenominator() - r.getNumerator() * this.denominator;
-        int newDenominator = this.denominator * r.getDenominator();
+        int newDenominator = this.getDenominator() * r.getDenominator();
         return new MyRational(newNumerator, newDenominator);
     }
 
     public MyRational multiply(MyRational r) {
         int newNumerator = this.getNumerator() * r.getNumerator();
-        int newDenominator = this.denominator * r.getDenominator();
+        int newDenominator = this.getDenominator() * r.getDenominator();
         return new MyRational(newNumerator, newDenominator);
     }
 
     public MyRational divide(MyRational r) {
         int newNumerator = this.getNumerator() * r.getDenominator();
-        int newDenominator = this.denominator * r.getNumerator();
+        int newDenominator = this.getDenominator() * r.getNumerator();
         return new MyRational(newNumerator, newDenominator);
     }
 
