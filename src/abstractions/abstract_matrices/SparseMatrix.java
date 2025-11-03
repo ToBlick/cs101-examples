@@ -2,23 +2,21 @@ package abstractions.abstract_matrices;
 
 import java.util.ArrayList;
 
-import object_orientation.matrices.DenseMatrix;
-
 public class SparseMatrix extends AbstractMatrix{
 
     private ArrayList<Integer> rowIndices;
     private ArrayList<Integer> colIndices;
-    private ArrayList<Integer> data;
+    private ArrayList<Double> data;
 
     public SparseMatrix(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.rowIndices = new ArrayList<Integer>();
         this.colIndices = new ArrayList<Integer>();
-        this.data = new ArrayList<Integer>();
+        this.data = new ArrayList<Double>();
     }
     
-    public int getIndex(int i, int j) throws IndexOutOfBoundsException {
+    public double getIndex(int i, int j) throws IndexOutOfBoundsException {
         if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
@@ -34,7 +32,7 @@ public class SparseMatrix extends AbstractMatrix{
         return this.data.size();
     }
 
-    public void setIndex(int i, int j, int value) throws IndexOutOfBoundsException {
+    public void setIndex(int i, int j, double value) throws IndexOutOfBoundsException {
         if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
@@ -67,7 +65,6 @@ public class SparseMatrix extends AbstractMatrix{
         return result;
     }
 
-    // 
 
     public DenseMatrix toMatrix() {
         DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
@@ -82,6 +79,19 @@ public class SparseMatrix extends AbstractMatrix{
             int i = (int) (Math.random() * this.rows);
             int j = (int) (Math.random() * this.cols);
             this.setIndex(i, j, (int) (10 * Math.random()));
+        }
+    }
+
+    public void print() {
+        for (int i = 0; i < this.getRows(); i++) {
+            for (int j = 0; j < this.getCols(); j++) {
+                if (this.getIndex(i, j) == 0) 
+                    System.out.print(" . ");
+                else
+                    System.out.print(this.getIndex(i, j));
+                System.out.print(" ");
+            }
+            System.out.println();
         }
     }
 

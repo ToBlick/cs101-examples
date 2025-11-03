@@ -12,7 +12,7 @@ public abstract class AbstractMatrix {
         return this.cols;
     }
 
-    public abstract int getIndex(int i, int j);
+    public abstract double getIndex(int i, int j);
 
     public boolean equals(AbstractMatrix other) {
         if (this.getRows() != other.getRows() || this.getCols() != other.getCols()) {

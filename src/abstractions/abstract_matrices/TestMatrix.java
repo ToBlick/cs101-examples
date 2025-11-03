@@ -28,13 +28,13 @@ public class TestMatrix {
         im.print();
         System.out.println();
         
-        int[] d = {1, 2, 3, 4, 5};
+        double[] d = {1, 2, 3, 4, 5};
         DiagonalMatrix dm = new DiagonalMatrix(d);
         dm.print();
         System.out.println();
         
         DenseMatrix ddm = new DenseMatrix(dm);
-        dm.print();
+        ddm.print();
         System.out.println();
 
        int[] v = new int[n];
@@ -45,7 +45,7 @@ public class TestMatrix {
        for (int i = 0; i < n; i++) {
            w[i] = i;
        }
-       BiFunction<Integer, Integer, Integer> f = (i, j) -> i + j;
+       BiFunction<Integer, Integer, Double> f = (i, j) -> (double) (i + j);
        LazyMatrix lm = new LazyMatrix(f, v, w);
        lm.print();
     }

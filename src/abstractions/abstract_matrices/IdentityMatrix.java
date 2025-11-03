@@ -8,8 +8,8 @@ public class IdentityMatrix extends DiagonalMatrix {
 		this.cols = n;
 	}
 	
-	public int getIndex(int i, int j) {
-		return i == j ? 1 : 0;
+	public double getIndex(int i, int j) {
+		return i == j ? 1.0 : 0.0;
 	}
 
 }

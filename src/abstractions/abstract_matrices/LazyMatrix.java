@@ -7,9 +7,9 @@ public class LazyMatrix extends AbstractMatrix{
     private int[] v;
     private int[] w;
 
-    private BiFunction<Integer, Integer, Integer> function;
+    private BiFunction<Integer, Integer, Double> function;
 
-    public LazyMatrix(BiFunction<Integer, Integer, Integer> function, int[] v, int[] w) {
+    public LazyMatrix(BiFunction<Integer, Integer, Double> function, int[] v, int[] w) {
         this.function = function;
         this.v = v;
         this.w = w;
@@ -17,7 +17,7 @@ public class LazyMatrix extends AbstractMatrix{
         this.cols = w.length;
     }
 
-    public int getIndex(int i, int j) {
+    public double getIndex(int i, int j) {
         return function.apply(v[i], w[j]);
     }
 

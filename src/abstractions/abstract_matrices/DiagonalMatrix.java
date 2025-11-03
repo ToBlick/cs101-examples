@@ -2,15 +2,15 @@ package abstractions.abstract_matrices;
 
 public class DiagonalMatrix extends AbstractMatrix {
 	
-	private int[] diag;
+	private double[] diag;
 	
 	public DiagonalMatrix(int n) {
-		this.diag = new int[n];
+		this.diag = new double[n];
 		this.rows = n;
 		this.cols = n;
 	}
 	
-	public DiagonalMatrix(int[] diag) {
+	public DiagonalMatrix(double[] diag) {
 		this.diag = diag;
 		this.rows = diag.length;
 		this.cols = diag.length;
@@ -26,7 +26,7 @@ public class DiagonalMatrix extends AbstractMatrix {
     	
     }
 	
-	public int getIndex(int i, int j) {
+	public double getIndex(int i, int j) {
 		return i == j ? diag[i] : 0;
 	}
 

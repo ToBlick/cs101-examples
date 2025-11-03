@@ -3,15 +3,15 @@ package abstractions.abstract_matrices;
 
 public class DenseMatrix extends AbstractMatrix {
 
-    private int[][] data;
+    private double[][] data;
 
     public DenseMatrix(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
-        this.data = new int[rows][cols];
+        this.data = new double[rows][cols];
     }
 
-    public DenseMatrix(int[][] data) {
+    public DenseMatrix(double[][] data) {
         this.data = data;
         this.rows = data.length;
         this.cols = data[0].length;
@@ -21,7 +21,7 @@ public class DenseMatrix extends AbstractMatrix {
     public DenseMatrix(AbstractMatrix a) {
     	this.rows = a.getRows();
         this.cols = a.getCols();
-        this.data = new int[this.rows][this.cols];
+        this.data = new double[this.rows][this.cols];
         
         for (int i = 0; i < this.rows; i++) {
         	for (int j = 0; j < this.cols; j++) {
@@ -31,14 +31,11 @@ public class DenseMatrix extends AbstractMatrix {
     	
     }
 
-    // TODO: Write a constructor that only takes int[][] data.
-    // should throw an error if the input array is ragged.
-
-    public int getIndex(int i, int j) {
+    public double getIndex(int i, int j) {
         return this.data[i][j];
     }
 
-    public void setIndex(int row, int col, int value) {
+    public void setIndex(int row, int col, double value) {
         this.data[row][col] = value;
     }
 //
@@ -64,7 +61,7 @@ public class DenseMatrix extends AbstractMatrix {
     public void randomFill() {
         for (int i = 0; i < this.getRows(); i++) {
             for (int j = 0; j < this.getCols(); j++) {
-                this.setIndex(i, j, (int) (10 * Math.random()));
+                this.setIndex(i, j, Math.random());
             }
         }
     }
