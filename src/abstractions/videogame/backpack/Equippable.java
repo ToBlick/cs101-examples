@@ -1,6 +1,6 @@
 package abstractions.videogame.backpack;
 
-public interface Equipment {
+public interface Equippable {
 
     public void info();
 

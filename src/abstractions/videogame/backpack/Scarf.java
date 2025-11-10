@@ -3,7 +3,7 @@ package abstractions.videogame.backpack;
 import abstractions.videogame.mechanics.EffectTypes;
 import abstractions.videogame.mechanics.Effect;
 
-public class Scarf extends Item implements Usable, Equipment {
+public class Scarf extends Item implements Usable, Equippable {
 
     public void info() {
         System.out.println("Cool scarf that can be used as a bandage if need be.");

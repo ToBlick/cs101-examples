@@ -1,6 +1,6 @@
 package abstractions.videogame.backpack;
 
-public class PlotArmor extends Item implements Equipment{
+public class PlotArmor extends Item implements Equippable{
 
     public PlotArmor() {
         this.name = "Plot Armor";

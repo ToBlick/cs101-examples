@@ -25,11 +25,12 @@ public abstract class Character {
         if (handleImmunity()) {
             // Do nothing
         } else {
-            if (weakness == damageType) {
+            if (this.weakness == damageType) {
                 damage *= 2;
             }
-            System.out.println("The " + getName() + " takes " + damage + " damage.");
-            health -= damage;
+            System.out.println("The " + this.getName() + 
+                " takes " + damage + " damage.");
+            this.health -= damage;
         }
     }
 }
