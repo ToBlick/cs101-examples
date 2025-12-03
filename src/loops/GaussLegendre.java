@@ -1,7 +1,5 @@
 package loops;
 
-import java.text.DecimalFormat;
-
 /**
  * A method to compute pi to desired accuracy.
  * https://en.wikipedia.org/wiki/Gauss%E2%80%93Legendre_algorithm

@@ -2,20 +2,18 @@ package testing;
 
 import java.util.ArrayList;
 
-import object_orientation.matrices.DenseMatrix;
-
 public class SparseMatrix extends AbstractMatrix{
 
     private ArrayList<Integer> rowIndices;
     private ArrayList<Integer> colIndices;
-    private ArrayList<Integer> data;
+    private ArrayList<Double> data;
 
     public SparseMatrix(int rows, int cols) {
         this.rows = rows;
         this.cols = cols;
         this.rowIndices = new ArrayList<Integer>();
         this.colIndices = new ArrayList<Integer>();
-        this.data = new ArrayList<Integer>();
+        this.data = new ArrayList<Double>();
     }
 
     public SparseMatrix(double[][] data) {
@@ -23,10 +21,23 @@ public class SparseMatrix extends AbstractMatrix{
         this.cols = data[0].length;
         this.rowIndices = new ArrayList<Integer>();
         this.colIndices = new ArrayList<Integer>();
-        this.data = new ArrayList<Integer>();
+        this.data = new ArrayList<Double>();
         for (int i = 0; i < this.rows; i++) {
             for (int j = 0; j < this.cols; j++) {
-                this.setIndex(i, j, (int) data[i][j]);
+                this.setIndex(i, j, data[i][j]);
+            }
+        }
+    }
+
+    public SparseMatrix(AbstractMatrix m) {
+        this.rows = m.getRows();
+        this.cols = m.getCols();
+        this.rowIndices = new ArrayList<Integer>();
+        this.colIndices = new ArrayList<Integer>();
+        this.data = new ArrayList<Double>();
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                this.setIndex(i, j, m.getIndex(i, j));
             }
         }
     }
@@ -35,7 +46,7 @@ public class SparseMatrix extends AbstractMatrix{
         return this.data.size();
     }
 
-    public void setIndex(int i, int j, int value) throws IndexOutOfBoundsException {
+    public void setIndex(int i, int j, double value) throws IndexOutOfBoundsException {
         if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
@@ -54,7 +65,7 @@ public class SparseMatrix extends AbstractMatrix{
         this.data.add(value);
     }
 
-    public int getIndex(int i, int j) throws IndexOutOfBoundsException {
+    public double getIndex(int i, int j) throws IndexOutOfBoundsException {
         if (i < 0 || i >= this.rows || j < 0 || j >= this.cols) {
             throw new IndexOutOfBoundsException("Index out of bounds.");
         }
@@ -66,25 +77,29 @@ public class SparseMatrix extends AbstractMatrix{
         return 0;
     }
 
-    // public boolean equals(SparseMatrix other) {
-    //     // TODO: Implement equals to other Sparse Matrix that is much faster.
-    //     // Only needs a loop of size #nonzeroelements
-    // }
+    public boolean equals(SparseMatrix other) {
+        if ( (other == null) || 
+            (this.rows != other.rows || this.cols != other.cols) || 
+            (this.data.size() != other.data.size()) ) {
+            return false;
+        }
+        // Check if all non-zero elements are the same
+        for (int k = 0; k < this.data.size(); k++) {
+            int row = this.rowIndices.get(k);
+            int col = this.colIndices.get(k);
+            double value = this.data.get(k);
+            
+            if (other.getIndex(row, col) != value) {
+                return false;
+            }
+        }
+        return true;
+    }
     
     public SparseMatrix transpose() {
         SparseMatrix result = new SparseMatrix(this.getCols(), this.getRows());
         for (int k = 0; k < this.data.size(); k++) {
             result.setIndex(this.colIndices.get(k), this.rowIndices.get(k), this.data.get(k));
-        }
-        return result;
-    }
-
-    // 
-
-    public DenseMatrix toMatrix() {
-        DenseMatrix result = new DenseMatrix(this.getRows(), this.getCols());
-        for (int k = 0; k < this.data.size(); k++) {
-            result.setIndex(this.rowIndices.get(k), this.colIndices.get(k), this.data.get(k));
         }
         return result;
     }
